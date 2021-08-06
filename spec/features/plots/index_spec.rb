@@ -1,10 +1,12 @@
 require 'rails_helper' 
 
 RSpec.describe 'Plots Index Page' do 
-  before :each do 
-    @plot1 = Plot.create!(number: 1, size: 'Small', direction: 'south')
-    @plot2 = Plot.create!(number: 2, size: 'Medium', direction: 'East')
-    @plot3 = Plot.create!(number: 3, size: 'Large', direction: 'North')
+  before :each do
+    @garden = Garden.create!(name: 'Florida Orchirds', organic: true)
+
+    @plot1 = Plot.create!(number: 1, size: 'Small', direction: 'south', garden_id: @garden.id)
+    @plot2 = Plot.create!(number: 2, size: 'Medium', direction: 'East', garden_id: @garden.id)
+    @plot3 = Plot.create!(number: 3, size: 'Large', direction: 'North', garden_id: @garden.id)
 
     @plant1 = Plant.create!(name: 'Oranges', description: 'Likes sun', days_to_harvest: '90 days')
     @plant2 = Plant.create!(name: 'Apples', description: 'Likes sun', days_to_harvest: '90 days')
@@ -20,15 +22,40 @@ RSpec.describe 'Plots Index Page' do
     @pp5 = PlantPlot.create!(plant_id: @plant5.id, plot_id: @plot3.id)
     @pp6 = PlantPlot.create!(plant_id: @plant6.id, plot_id: @plot3.id)
 
-  
+    visit '/plots'
+  end
+
+  it 'is on the right page' do 
+     expect(current_path).to eq('/plots')
+  end 
+
+  it ' can display all plot numbers' do 
+    expect(page).to have_content("Plot Number: #{@plot1.number}")
+    expect(page).to have_content("Plot Number: #{@plot2.number}")
+    expect(page).to have_content("Plot Number: #{@plot3.number}")
 
   end
 
-  it ' can list all plot numbers' do 
-
-  end 
-
   it 'can display each plots plants' do 
-    
+    within("#plot-#{@plot1.id}") do 
+      expect(page).to have_content(@plant1.name)
+      expect(page).to have_content(@plant2.name)
+      expect(page).to_not have_content(@plant3.name)
+      expect(page).to_not have_content(@plant4.name)
+    end 
+
+    within("#plot-#{@plot2.id}") do 
+      expect(page).to have_content(@plant3.name)
+      expect(page).to have_content(@plant4.name)
+      expect(page).to_not have_content(@plant2.name)
+      expect(page).to_not have_content(@plant5.name)
+    end 
+
+    within("#plot-#{@plot3.id}") do 
+      expect(page).to have_content(@plant5.name)
+      expect(page).to have_content(@plant6.name)
+      expect(page).to_not have_content(@plant3.name)
+      expect(page).to_not have_content(@plant4.name)
+    end 
   end 
 end

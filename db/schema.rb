@@ -15,23 +15,6 @@ ActiveRecord::Schema.define(version: 2021_08_06_142343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "competition_teams", force: :cascade do |t|
-    t.bigint "competition_id"
-    t.bigint "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["competition_id"], name: "index_competition_teams_on_competition_id"
-    t.index ["team_id"], name: "index_competition_teams_on_team_id"
-  end
-
-  create_table "competitions", force: :cascade do |t|
-    t.string "name"
-    t.string "location"
-    t.string "sport"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "gardens", force: :cascade do |t|
     t.string "name"
     t.boolean "organic"
@@ -40,10 +23,8 @@ ActiveRecord::Schema.define(version: 2021_08_06_142343) do
   end
 
   create_table "plant_plots", force: :cascade do |t|
-    t.bigint "garden_id"
     t.bigint "plot_id"
     t.bigint "plant_id"
-    t.index ["garden_id"], name: "index_plant_plots_on_garden_id"
     t.index ["plant_id"], name: "index_plant_plots_on_plant_id"
     t.index ["plot_id"], name: "index_plant_plots_on_plot_id"
   end
@@ -52,15 +33,6 @@ ActiveRecord::Schema.define(version: 2021_08_06_142343) do
     t.string "name"
     t.string "description"
     t.string "days_to_harvest"
-  end
-
-  create_table "players", force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
-    t.bigint "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["team_id"], name: "index_players_on_team_id"
   end
 
   create_table "plots", force: :cascade do |t|
@@ -73,21 +45,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_142343) do
     t.index ["garden_id"], name: "index_plots_on_garden_id"
   end
 
-  create_table "teams", force: :cascade do |t|
-    t.string "hometown"
-    t.string "nickname"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "competition_id"
-    t.index ["competition_id"], name: "index_teams_on_competition_id"
-  end
-
-  add_foreign_key "competition_teams", "competitions"
-  add_foreign_key "competition_teams", "teams"
-  add_foreign_key "plant_plots", "gardens"
   add_foreign_key "plant_plots", "plants"
   add_foreign_key "plant_plots", "plots"
-  add_foreign_key "players", "teams"
   add_foreign_key "plots", "gardens"
-  add_foreign_key "teams", "competitions"
 end
