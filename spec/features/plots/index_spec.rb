@@ -40,20 +40,31 @@ RSpec.describe 'Plots Index Page' do
     within("#plot-#{@plot1.id}") do 
       expect(page).to have_content(@plant1.name)
       expect(page).to have_content(@plant2.name)
-      expect(page).to_not have_content(@plant3.name)
-      expect(page).to_not have_content(@plant4.name)
     end 
 
     within("#plot-#{@plot2.id}") do 
       expect(page).to have_content(@plant3.name)
       expect(page).to have_content(@plant4.name)
-      expect(page).to_not have_content(@plant2.name)
-      expect(page).to_not have_content(@plant5.name)
     end 
 
     within("#plot-#{@plot3.id}") do 
       expect(page).to have_content(@plant5.name)
       expect(page).to have_content(@plant6.name)
+    end 
+  end 
+
+  it 'can WONT display each plots plants' do 
+    within("#plot-#{@plot1.id}") do 
+      expect(page).to_not have_content(@plant3.name)
+      expect(page).to_not have_content(@plant4.name)
+    end 
+
+    within("#plot-#{@plot2.id}") do 
+      expect(page).to_not have_content(@plant2.name)
+      expect(page).to_not have_content(@plant5.name)
+    end 
+
+    within("#plot-#{@plot3.id}") do 
       expect(page).to_not have_content(@plant3.name)
       expect(page).to_not have_content(@plant4.name)
     end 
@@ -67,6 +78,19 @@ RSpec.describe 'Plots Index Page' do
         expect(current_path).to eq('/plots')
       end 
       expect(page).to_not have_content(@plant1.name)
+    end 
+  end 
+
+  it 'removes plant with out deleting record' do 
+    expect(Plant.all.length).to eq(6)
+    within("#plot-#{@plot1.id}") do 
+      within("#plant-#{@plant1.id}") do 
+        click_link 'Remove Plant'
+
+        expect(current_path).to eq('/plots')
+      end 
+      expect(page).to_not have_content(@plant1.name)
+      expect(Plant.all.length).to eq(6)
     end 
   end 
 end

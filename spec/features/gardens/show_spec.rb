@@ -18,9 +18,13 @@ RSpec.describe 'Garden Show Page' do
     @plant6 = Plant.create!(name: 'Mangos', description: 'Likes sun', days_to_harvest: 100)
 
 
-    @pp1 = PlantPlot.create!(plant_id: @plant1.id, plot_id: @plot1.id)
+   
     @pp2 = PlantPlot.create!(plant_id: @plant2.id, plot_id: @plot1.id)
-    @pp3 = PlantPlot.create!(plant_id: @plant3.id, plot_id: @plot2.id)
+
+     #same plant for testing distinct
+    @pp1 = PlantPlot.create!(plant_id: @plant1.id, plot_id: @plot1.id)
+    @pp3 = PlantPlot.create!(plant_id: @plant1.id, plot_id: @plot2.id)
+
     @pp4 = PlantPlot.create!(plant_id: @plant4.id, plot_id: @plot2.id)
     @pp5 = PlantPlot.create!(plant_id: @plant5.id, plot_id: @plot3.id)
     @pp6 = PlantPlot.create!(plant_id: @plant6.id, plot_id: @plot3.id)
@@ -41,10 +45,13 @@ RSpec.describe 'Garden Show Page' do
 
   it 'displays all plants in that garden that are distinct and have a harvest time under 100 days' do 
     expect(page).to have_content(@plant2.name)
-    expect(page).to have_content(@plant3.name)
     expect(page).to have_content(@plant4.name)
+  end
+  
+  it 'does not display plants over 100 days harvest and from different gardens' do
     expect(page).to_not have_content(@plant1.name)
     expect(page).to_not have_content(@plant5.name)
     expect(page).to_not have_content(@plant6.name)
+    expect(page).to_not have_content(@plant3.name)
   end 
 end 
