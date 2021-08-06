@@ -17,12 +17,16 @@ RSpec.describe 'Garden Show Page' do
     @plant5 = Plant.create!(name: 'Apricots', description: 'Likes sun', days_to_harvest: 100)
     @plant6 = Plant.create!(name: 'Mangos', description: 'Likes sun', days_to_harvest: 100)
 
+
     @pp1 = PlantPlot.create!(plant_id: @plant1.id, plot_id: @plot1.id)
     @pp2 = PlantPlot.create!(plant_id: @plant2.id, plot_id: @plot1.id)
     @pp3 = PlantPlot.create!(plant_id: @plant3.id, plot_id: @plot2.id)
     @pp4 = PlantPlot.create!(plant_id: @plant4.id, plot_id: @plot2.id)
     @pp5 = PlantPlot.create!(plant_id: @plant5.id, plot_id: @plot3.id)
     @pp6 = PlantPlot.create!(plant_id: @plant6.id, plot_id: @plot3.id)
+
+
+
 
     visit "/gardens/#{@garden1.id}"
   end
@@ -35,8 +39,7 @@ RSpec.describe 'Garden Show Page' do
     expect(page).to have_content("Garden: #{@garden1.name}")
   end
 
-  it 'displays all plants in that garden' do 
-    save_and_open_page
+  it 'displays all plants in that garden that are distinct and have a harvest time under 100 days' do 
     expect(page).to have_content(@plant2.name)
     expect(page).to have_content(@plant3.name)
     expect(page).to have_content(@plant4.name)
