@@ -5,6 +5,8 @@ class Garden < ApplicationRecord
 
 
   def garden_plants
-    gardens.joins(:plots).select('plots.*').where
+    plants
+    .where('days_to_harvest < ?', 100)
+    .distinct
   end
 end

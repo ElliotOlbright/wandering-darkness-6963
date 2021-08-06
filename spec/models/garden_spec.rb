@@ -17,12 +17,12 @@ RSpec.describe Garden do
     @plot2 = Plot.create!(number: 2, size: 'Medium', direction: 'East', garden_id: @garden1.id)
     @plot3 = Plot.create!(number: 3, size: 'Large', direction: 'North', garden_id: @garden2.id)
 
-    @plant1 = Plant.create!(name: 'Oranges', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant2 = Plant.create!(name: 'Apples', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant3 = Plant.create!(name: 'Peaches', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant4 = Plant.create!(name: 'Lemons', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant5 = Plant.create!(name: 'Apricots', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant6 = Plant.create!(name: 'Mangos', description: 'Likes sun', days_to_harvest: '90 days')
+    @plant1 = Plant.create!(name: 'Oranges', description: 'Likes sun', days_to_harvest: 120)
+    @plant2 = Plant.create!(name: 'Apples', description: 'Likes sun', days_to_harvest: 90)
+    @plant3 = Plant.create!(name: 'Peaches', description: 'Likes sun', days_to_harvest: 80)
+    @plant4 = Plant.create!(name: 'Lemons', description: 'Likes sun', days_to_harvest: 70)
+    @plant5 = Plant.create!(name: 'Apricots', description: 'Likes sun', days_to_harvest: 100)
+    @plant6 = Plant.create!(name: 'Mangos', description: 'Likes sun', days_to_harvest: 100)
 
     @pp1 = PlantPlot.create!(plant_id: @plant1.id, plot_id: @plot1.id)
     @pp2 = PlantPlot.create!(plant_id: @plant2.id, plot_id: @plot1.id)
@@ -33,9 +33,8 @@ RSpec.describe Garden do
   end
   describe 'methods' do 
     describe '::garden_plants' do 
-      xit ' can display all plants related to that garden' do 
-        require "pry"; binding.pry
-        expected = [@plant1, @plant2, @plant3, @plant4]
+      it ' can display all plants related to that garden' do 
+        expected = [ @plant2, @plant3, @plant4]
 
         expect(@garden1.garden_plants).to eq(expected)
       end 

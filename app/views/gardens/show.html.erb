@@ -1,1 +1,6 @@
 <h1>Garden: <%= @garden.name %></h1>
+
+<h3>plants in this garden:</h3>
+<% @garden.garden_plants do |plant|%>
+  <%= plant.name %><br> 
+<% end %>
