@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe Garden do
   describe 'relationships' do
     it { should have_many(:plots) }
+    it { should have_many(:plant_plots), through: :plots }
+    it { should have_many(:plants), through: :plots }
+
   end
   before :each do
     @garden1 = Garden.create!(name: 'Florida Orchirds', organic: true)
@@ -30,7 +33,7 @@ RSpec.describe Garden do
   end
   describe 'methods' do 
     describe '::garden_plants' do 
-      it ' can display all plants related to that garden' do 
+      xit ' can display all plants related to that garden' do 
         require "pry"; binding.pry
         expected = [@plant1, @plant2, @plant3, @plant4]
 

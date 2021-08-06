@@ -8,12 +8,12 @@ RSpec.describe 'Garden Show Page' do
     @plot2 = Plot.create!(number: 2, size: 'Medium', direction: 'East', garden_id: @garden.id)
     @plot3 = Plot.create!(number: 3, size: 'Large', direction: 'North', garden_id: @garden.id)
 
-    @plant1 = Plant.create!(name: 'Oranges', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant2 = Plant.create!(name: 'Apples', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant3 = Plant.create!(name: 'Peaches', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant4 = Plant.create!(name: 'Lemons', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant5 = Plant.create!(name: 'Apricots', description: 'Likes sun', days_to_harvest: '90 days')
-    @plant6 = Plant.create!(name: 'Mangos', description: 'Likes sun', days_to_harvest: '90 days')
+    @plant1 = Plant.create!(name: 'Oranges', description: 'Likes sun', days_to_harvest: 100)
+    @plant2 = Plant.create!(name: 'Apples', description: 'Likes sun', days_to_harvest: 100)
+    @plant3 = Plant.create!(name: 'Peaches', description: 'Likes sun', days_to_harvest: 100)
+    @plant4 = Plant.create!(name: 'Lemons', description: 'Likes sun', days_to_harvest: 100)
+    @plant5 = Plant.create!(name: 'Apricots', description: 'Likes sun', days_to_harvest: 100)
+    @plant6 = Plant.create!(name: 'Mangos', description: 'Likes sun', days_to_harvest: 100)
 
     @pp1 = PlantPlot.create!(plant_id: @plant1.id, plot_id: @plot1.id)
     @pp2 = PlantPlot.create!(plant_id: @plant2.id, plot_id: @plot1.id)

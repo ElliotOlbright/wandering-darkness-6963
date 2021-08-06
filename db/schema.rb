@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_142343) do
   create_table "plants", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "days_to_harvest"
+    t.integer "days_to_harvest"
   end
 
   create_table "plots", force: :cascade do |t|
