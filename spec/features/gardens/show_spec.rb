@@ -28,4 +28,17 @@ RSpec.describe 'Garden Show Page' do
   it 'is on the right page' do 
     expect(current_path).to eq("/gardens/#{@garden.id}")
   end 
+
+  it 'displays garden name' do 
+    expect(page).to have_content("Garden: #{@garden.name}")
+  end
+
+  xit 'displays all plants in that garden' do 
+    expect(page).to have_content(@plant1.name)
+    expect(page).to have_content(@plant2.name)
+    expect(page).to have_content(@plant3.name)
+    expect(page).to have_content(@plant4.name)
+    expect(page).to have_content(@plant5.name)
+    expect(page).to have_content(@plant6.name)
+  end 
 end 
